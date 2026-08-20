@@ -1,37 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+namespace EwonSqlInjector;
 
-Console.WriteLine("Paste JSON data:");
-
-string? json = Console.ReadLine();
-
-try
+internal static class Program
 {
-    JObject data = JObject.Parse(json!);
-
-    Console.WriteLine();
-    Console.WriteLine("=== PARSED DATA ===");
-
-    Console.WriteLine($"Device: {data["device"]}");
-    Console.WriteLine($"Timestamp: {data["timestamp"]}");
-
-    Console.WriteLine();
-
-    JArray? tags = data["tags"] as JArray;
-
-    if (tags != null)
+    [STAThread]
+    static void Main()
     {
-        foreach (JObject tag in tags)
-        {
-            Console.WriteLine($"Tag Name : {tag["name"]}");
-            Console.WriteLine($"Value    : {tag["value"]}");
-            Console.WriteLine($"Unit     : {tag["unit"]}");
-            Console.WriteLine("--------------------");
-        }
+        ApplicationConfiguration.Initialize();
+        Application.Run(new MainForm());
     }
-}
-catch (Exception ex)
-{
-    Console.WriteLine();
-    Console.WriteLine("Parsing failed.");
-    Console.WriteLine($"Error: {ex.Message}");
 }
